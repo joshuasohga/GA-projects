@@ -1,181 +1,79 @@
 # ![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png) Project 3: Web APIs & NLP
 
-### Description
 
-In week four we've learned about a few different classifiers. In week five we'll learn about webscraping, APIs, and Natural Language Processing (NLP). This project will put those skills to the test.
+# Problem Statement
 
-For project 3, your goal is two-fold:
-1. Using [Pushshift's](https://github.com/pushshift/api) API, you'll collect posts from two subreddits of your choosing.
-2. You'll then use NLP to train a classifier on which subreddit a given post came from. This is a binary classification problem.
+Being part of an in-house Data Science Marketing Team of a beverage company venturing into e-commerce, my team and I are planning to leverage on Machine Learning to refine our recommendations to our e-customers, based on keywords.
 
+The main objective of this project is to scrape two subreddits: <a href="https://reddit.com/r/coffee">r/coffee</a> and <a href="https://reddit.com/r/tea">r/tea</a> through a webscrapper, leveraging on Reddit's Pushshift API. The scraped data from the two subreddits will then be passed through various classification models, CountVectorizer/TfidVectorizer with Naive Bayes Classifier, LogisticRegression that will assign each observation to the most likely class of subreddit. The models should help the data science marketing team of my company identify what keywords are likely to predict the correct subreddit, and in turn, tailor a more enriching experience to our customers.
 
-#### About the API
-
-Pushshift's API is fairly straightforward. For example, if I want the posts from [`/r/boardgames`](https://www.reddit.com/r/boardgames), all I have to do is use the following url: https://api.pushshift.io/reddit/search/submission?subreddit=boardgames
-
-To help you get started, we have a primer video on how to use the API: https://youtu.be/AcrjEWsMi_E
-
-**NOTE:** Pushshift now limits you to 100 posts per request (no longer the 500 in the screencast).
+In this process, the subreddit posts will undergo preprocessing and EDA. The success of the models that we decide on will be determined through the highest accuracy based on the scores obtained.
 
 ---
 
-### Requirements
+## Executive Summary
 
-- Gather and prepare your data using the `requests` library.
-- **Create and compare two models**. One of these must be a Naive Bayes classifier, however the other can be a classifier of your choosing: logistic regression, KNN, SVM, etc.
-- A Jupyter Notebook with your analysis for a peer audience of data scientists.
-- An executive summary of your results.
-- A short presentation outlining your process and findings for a semi-technical audience.
+There are no shortage of coffee or tea lovers in the world; millions, if not billions of people around the world begin their day with a cup of either beverages. According to a report published by ResearchAndMarkets, the "global ready to drink tea and coffee market has reached US$14 billion in 2020. Looking forward, the publisher expects the market to grow at a CAGR (compound annual growth rate) of 7.5% during 2021-2026. (<a href="https://www.researchandmarkets.com/reports/5353400/ready-to-drink-tea-and-coffee-market-global?utm_source=CI&utm_medium=PressRelease&utm_code=wgsm5l&utm_campaign=1621568+-+Global+Ready+to+Drink+Tea+and+Coffee+Market+(2021+to+2026)+-+Industry+Trends%2c+Share%2c+Size%2c+Growth%2c+Opportunity+and+Forecasts&utm_exec=jamu273prd">Source</a>)" Expectations may fall short, but this market is bound for growth.
+ 
+In this project, my team seeks to explore the similarities and differences in keywords used between subreddits Coffee and Tea through its discussions and topics within their own respective communities. As a social news aggregation, web content rating and discussion website boasting over 52 million <b>daily active users</b> (<a href="https://backlinko.com/reddit-users">Source</a>), there is no other platform more suitable than Reddit to conduct our analysis. We believe that Reddit will be an insightful source of data to understand what are the popular topics in these respective subreddits.
 
-**Pro Tip:** You can find a good example executive summary [here](https://www.proposify.biz/blog/executive-summary).
+To ease on code execution times, the web scraping portion will be done in a separate notebook. In the notebook labelled Project 3 - Final, I will be covering the steps taken to clean and analyze the data retrieved, steps taken to pre-process the text data, visualize the data and use different models to find the optimal model.
 
 ---
 
-### Necessary Deliverables / Submission
+### Explanatory Data Analysis
 
-- Code must be in at least one clearly commented Jupyter Notebook.
-- A readme/executive summary in markdown.
-- You must submit your slide deck as a PDF.
-- Materials must be submitted by **9:00 AM on Friday, 5th November**.
+Word Cloud - Most Common Words in Coffee and Tea subreddits
 
----
-
-### Presentation Structure
-
-- Presentation Time: 25 minutes per group
-- Q&A Time: 15 minutes per group
-- Use Google Slides or some other visual aid (Keynote, Powerpoint, etc).
-- Consider the audience. Assume you are presenting to an audience of technical and non-technical audiences.
-
-Be sure to rehearse and time your presentation before class.
-
----
-
-## Rubric
-Teachning team will evaluate your project (for the most part) using the following criteria.  You should make sure that you consider and/or follow most if not all of the considerations/recommendations outlined below **while** working through your project.
-
-**Note:** Presentation will be done as a group while codes will be prepared and submitted by each student.
-
-For Project 3 the evaluation categories are as follows:<br>
-**The Data Science Process**
-- Problem Statement
-- Data Collection
-- Data Cleaning & EDA
-- Preprocessing & Modeling
-- Evaluation and Conceptual Understanding
-- Conclusion and Recommendations
-
-**Organization and Professionalism**
-- Organization
-- Visualizations
-- Python Syntax and Control Flow
-- Presentation
-
-**Scores will be out of 30 points based on the 10 categories in the rubric.** <br>
-*3 points per section*<br>
-
-| Score | Interpretation |
-| --- | --- |
-| **0** | *Project fails to meet the minimum requirements for this item.* |
-| **1** | *Project meets the minimum requirements for this item, but falls significantly short of portfolio-ready expectations.* |
-| **2** | *Project exceeds the minimum requirements for this item, but falls short of portfolio-ready expectations.* |
-| **3** | *Project meets or exceeds portfolio-ready expectations; demonstrates a thorough understanding of every outlined consideration.* |
+<img src="https://github.com/wrex303/GA-projects/blob/main/project_3/project_3/coffeewc.JPG?raw=true">
+<br>
+<br>
+<br>
 
 
-### The Data Science Process
-
-**Problem Statement**
-- Is it clear what the goal of the project is?
-- What type of model will be developed?
-- How will success be evaluated?
-- Is the scope of the project appropriate?
-- Is it clear who cares about this or why this is important to investigate?
-- Does the student consider the audience and the primary and secondary stakeholders?
-
-**Data Collection**
-- Was enough data gathered to generate a significant result?
-- Was data collected that was useful and relevant to the project?
-- Was data collection and storage optimized through custom functions, pipelines, and/or automation?
-- Was thought given to the server receiving the requests such as considering number of requests per second?
-
-**Data Cleaning and EDA**
-- Are missing values imputed/handled appropriately?
-- Are distributions examined and described?
-- Are outliers identified and addressed?
-- Are appropriate summary statistics provided?
-- Are steps taken during data cleaning and EDA framed appropriately?
-- Does the student address whether or not they are likely to be able to answer their problem statement with the provided data given what they've discovered during EDA?
-
-**Preprocessing and Modeling**
-- Is text data successfully converted to a matrix representation?
-- Are methods such as stop words, stemming, and lemmatization explored?
-- Does the student properly split and/or sample the data for validation/training purposes?
-- Does the student test and evaluate a variety of models to identify a production algorithm (**2 Models should be used**)?
-- Does the student defend their choice of production model relevant to the data at hand and the problem?
-- Does the student explain how the model works and evaluate its performance successes/downfalls?
-
-**Evaluation and Conceptual Understanding**
-- Does the student accurately identify and explain the baseline score?
-- Does the student select and use metrics relevant to the problem objective?
-- Does the student interpret the results of their model for purposes of inference?
-- Is domain knowledge demonstrated when interpreting results?
-- Does the student provide appropriate interpretation with regards to descriptive and inferential statistics?
-
-**Conclusion and Recommendations**
-- Does the student provide appropriate context to connect individual steps back to the overall project?
-- Is it clear how the final recommendations were reached?
-- Are the conclusions/recommendations clearly stated?
-- Does the conclusion answer the original problem statement?
-- Does the student address how findings of this research can be applied for the benefit of stakeholders?
-- Are future steps to move the project forward identified?
-
-
-### Organization and Professionalism
-
-**Project Organization**
-- Are modules imported correctly (using appropriate aliases)?
-- Are data imported/saved using relative paths?
-- Does the README provide a good executive summary of the project?
-- Is markdown formatting used appropriately to structure notebooks?
-- Are there an appropriate amount of comments to support the code?
-- Are files & directories organized correctly?
-- Are there unnecessary files included?
-- Do files and directories have well-structured, appropriate, consistent names?
-
-**Visualizations**
-- Are sufficient visualizations provided?
-- Do plots accurately demonstrate valid relationships?
-- Are plots labeled properly?
-- Are plots interpreted appropriately?
-- Are plots formatted and scaled appropriately for inclusion in a notebook-based technical report?
-
-**Python Syntax and Control Flow**
-- Is care taken to write human readable code?
-- Is the code syntactically correct (no runtime errors)?
-- Does the code generate desired results (logically correct)?
-- Does the code follows general best practices and style guidelines?
-- Are Pandas functions used appropriately?
-- Are `sklearn` and `NLTK` methods used appropriately?
-
-**Presentation**
-- Is the problem statement clearly presented?
-- Does a strong narrative run through the presentation building toward a final conclusion?
-- Are the conclusions/recommendations clearly stated?
-- Is the level of technicality appropriate for the intended audience?
-- Is the student substantially over or under time?
-- Does the student appropriately pace their presentation?
-- Does the student deliver their message with clarity and volume?
-- Are appropriate visualizations generated for the intended audience?
-- Are visualizations necessary and useful for supporting conclusions/explaining findings?
+<img src="https://github.com/wrex303/GA-projects/blob/main/project_3/project_3/teawc.JPG?raw=true">
 
 
 ---
 
-### Why did we choose this project for you?
-This project covers three of the biggest concepts we cover in the class: Classification Modeling, Natural Language Processing and Data Wrangling/Acquisition.
+## Summary of Results/Conclusion
 
-Part 1 of the project focuses on **Data wrangling/gathering/acquisition**. This is a very important skill as not all the data you will need will be in clean CSVs or a single table in SQL.  There is a good chance that wherever you land you will have to gather some data from some unstructured/semi-structured sources; when possible, requesting information from an API, but often scraping it because they don't have an API (or it's terribly documented).
+|Model|Vectorizer|Training Score|Testing Score|TN|FN|TP|FP|Delta|
+|---|---|---|---|---|---|---|---|---|
+|Naive-Bayes|Count Vectorizer|0.926|0.860|392|62|330|56|0.066|
+|Naive-Bayes|TFIDF Vectorizer|0.963|0.865|419|84|308|29|0.098|
+|Logistics Regression|Count Vectorizer|0.972|0.844|373|56|336|75|0.128|
+|Logistics Regression|TFIDF Vectorizer|0.956|0.839|389|76|316|59|0.117|
 
-Part 2 of the project focuses on **Natural Language Processing** and converting standard text data (like Titles and Comments) into a format that allows us to analyze it and use it in modeling.
+After running our data through 4 model combinations, I have chosen the `MultinomialNB - CvecVectorizer model` combination with a score of 86.0% in predicting which subreddit a post came from (Coffee or Tea). Although the model came in second in test score, the basis for choosing this model was due to the lower delta between the Train and Test score (0.066) as compared to the higher delta between the model with the highest test score (0.098). Moreover, this model also had a high ROC-AUC score of <b>95.2%</b> - meaning the model is able to mostly distinguish between the positive and negative classes.
 
-Part 3 of the project focuses on **Classification Modeling**.  Given that project 2 was a regression focused problem, we needed to give you a classification focused problem to practice the various models, means of assessment and preprocessing associated with classification.   
+Using GridSearchCV, the best hyperparameters for this particular model is:
+* 'cvec__max_df': 0.6,
+* 'cvec__max_features': 2000,
+* 'cvec__min_df': 2,
+* 'cvec__ngram_range': (1, 1),
+* 'nb__alpha': 0.25
+
+From our Data Visualizations, we have identified Coffee Subreddit to have key words such as `grinder`, `grind`, `burr`, `roaster`. On the other hand, the Tea subreddit tends to have key words like `oolong`, `pu`, `er`, and `gaiwan`. Given enough time, perhaps a further study can be conducted to understand how and why words such as `grind` and `burr` are some of the top keywords for the Coffee subreddit.
+
+---
+
+## Recommendations
+
+When it comes to modelling, introducing more data features may improve our modelling accuracy scores. One other possible area of focus can be the comments section of subreddit threads. 
+
+Since Reddit also has numerous submissions where the selftext is an image (imgur.com), if these can be used in Machine Learning for image classification, it may also help to improve our accuracy scores.
+
+---
+## Data Dictionary
+---
+| Parameter | Description |
+| ------ | ------ |
+| is_robot_indexable | Used to determine if a post has been deleted - if TRUE, the post still exists. If FALSE, the post can not be found on the subreddit. Main parameter for dropping deleted posts |
+| size | Number of posts to pull (capped at 100 per instance) |
+| subreddit | Restrict to a specific subreddit (r/coffee and r/tea) |
+| selftext  | Body text of the post |
+| title | Title of the post |
+| string_count | Number of strings for each post |
+| word_count | Number of words for each post |
+| text | A corpus of pre-processed text following cleaning, tokenization, lemmatization and removal of stopwords |
