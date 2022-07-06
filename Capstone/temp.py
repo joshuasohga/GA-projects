@@ -23,7 +23,7 @@ pd.set_option('display.max_columns', None)
 pd.options.display.float_format = '{:.2f}'.format #suppress scientific notations when using the Describe function
 pd.options.display.float_format = "{:,.2f}".format
 
-train = pd.read_csv("train.csv")
+train = pd.read_csv("./train.csv")
 
 train = train.iloc[:, 1:] #remove unnamed columns
 train_dummies = pd.get_dummies(train, drop_first = True) #onehotencoding the team_names
