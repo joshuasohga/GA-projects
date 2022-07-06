@@ -14,7 +14,6 @@ from sklearn.model_selection import cross_val_score, train_test_split, KFold
 from sklearn.linear_model import LinearRegression, Lasso, LassoCV, Ridge, RidgeCV, ElasticNet, ElasticNetCV 
 from sklearn.metrics import mean_squared_error
 from sklearn.dummy import DummyRegressor
-from pathlib import Path
 
 enet = ElasticNet
 sns.set_style()
@@ -22,8 +21,8 @@ sns.set_style()
 pd.set_option('display.max_columns', None)
 pd.options.display.float_format = '{:.2f}'.format #suppress scientific notations when using the Describe function
 pd.options.display.float_format = "{:,.2f}".format
-train_csv = Path(__file__).parents[1] / 'wrex303/ga-projects/main/Capstone/train.csv'
-train = pd.read_csv(train_csv)
+#train_csv = Path(__file__).parents[1] / 'wrex303/ga-projects/main/Capstone/train.csv'
+train = pd.read_csv('train.csv')
 
 train = train.iloc[:, 1:] #remove unnamed columns
 train_dummies = pd.get_dummies(train, drop_first = True) #onehotencoding the team_names
@@ -95,9 +94,11 @@ def predict_xpm(team_name):
         
         
 predict_xpm("Team Liquid")         
-abc = {'PSG.LGD','Team Spirit'}
+abc = {'PSG.LGD','Team Spirit','Nigma Galaxy','Team Secret','OG',
+'Thunder Awaken','Tundra Esports','Team Aster','BOOM Esports','Fnatic','Evil Geniuses','Team Liquid','Royal Never Give Up'}
 option = st.selectbox(
      'Which team would you like to predict?',
      (abc))
 uhno = predict_xpm(option)
-st.write('You selected:', option, uhno)
+st.write('You selected:', option)
+st.write('',uhno)
