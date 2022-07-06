@@ -22,7 +22,7 @@ sns.set_style()
 pd.set_option('display.max_columns', None)
 pd.options.display.float_format = '{:.2f}'.format #suppress scientific notations when using the Describe function
 pd.options.display.float_format = "{:,.2f}".format
-train_csv = Path(__file__).parents[1] / 'wrex303/Capstone/train.csv'
+train_csv = Path(__file__).parents[1] / 'wrex303/ga-projects/main/Capstone/train.csv'
 train = pd.read_csv(train_csv)
 
 train = train.iloc[:, 1:] #remove unnamed columns
