@@ -14,7 +14,7 @@ from sklearn.model_selection import cross_val_score, train_test_split, KFold
 from sklearn.linear_model import LinearRegression, Lasso, LassoCV, Ridge, RidgeCV, ElasticNet, ElasticNetCV 
 from sklearn.metrics import mean_squared_error
 from sklearn.dummy import DummyRegressor
-
+from pathlib import Path
 
 enet = ElasticNet
 sns.set_style()
@@ -22,8 +22,8 @@ sns.set_style()
 pd.set_option('display.max_columns', None)
 pd.options.display.float_format = '{:.2f}'.format #suppress scientific notations when using the Describe function
 pd.options.display.float_format = "{:,.2f}".format
-
-train = pd.read_csv("./train.csv")
+train_csv = Path(__file__).parents[1] / 'wrex303/Capstone/train.csv'
+train = pd.read_csv(train_csv)
 
 train = train.iloc[:, 1:] #remove unnamed columns
 train_dummies = pd.get_dummies(train, drop_first = True) #onehotencoding the team_names
